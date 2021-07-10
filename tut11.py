@@ -1,0 +1,66 @@
+import pygame
+pygame.init()
+import random
+
+# Creating Window
+screen_width= 800
+screen_height= 600
+gameWindow=pygame.display.set_mode((screen_width,screen_height))
+
+# title of the game
+pygame.display.set_caption("My First Game")
+pygame.display.update()
+
+# Colors
+white=(255,255,255)
+red=(255,0,0)
+black=(0,0,0)
+
+# Game Specific Variable
+exit_game=False
+game_over=False
+snake_x=100
+snake_y=60
+snake_size=20
+fps=30
+velocity_x=10
+velocity_y=10
+food_size=20
+food_x=random.randint(0,screen_width)
+food_y=random.randint(0,screen_height)
+
+# clock
+clock=pygame.time.Clock()
+
+# Creating A Game loop
+while not exit_game:
+    for event in pygame.event.get():
+        print(event)
+        if event.type==pygame.QUIT:
+            exit_game=True
+
+            # moving our snake_size
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_RIGHT:
+                velocity_x=10
+                velocity_y=0
+            if event.key==pygame.K_LEFT:
+                velocity_x=-10
+                velocity_y=0
+            if event.key==pygame.K_UP:
+                velocity_y=-10
+                velocity_x=-0
+            if event.key==pygame.K_DOWN:
+                velocity_y=10
+                velocity_x=0
+    #   moving snake with velocity
+    snake_x =snake_x + velocity_x          
+    snake_y =snake_y + velocity_y         
+    gameWindow.fill(white)
+    pygame.draw.rect(gameWindow,red,[snake_x,snake_y,snake_size,snake_size])
+    pygame.draw.rect(gameWindow,black,[food_x,food_y,food_size,food_size])
+    pygame.display.update()
+    clock.tick(fps)
+
+pygame.quit()
+quit()
